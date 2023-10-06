@@ -51,11 +51,7 @@ function version() {
 }
 
 function installer() {
-  if [[ "$package_manager" == "apt" ]]; then
-    sudo apt install -y $1
-  elif [[ "$package_manager" == "yum" ]]; then
-    sudo $package_manager install -y $1
-  fi
+  sudo $package_manager install -y $1
 }
 
 function executeInstaller() {

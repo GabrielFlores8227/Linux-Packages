@@ -51,11 +51,7 @@ function version() {
 }
 
 function installer() {
-  if [[ "$package_manager" == "apt" ]]; then
-    sudo apt install -y $1
-  elif [[ "$package_manager" == "yum" ]]; then
-    sudo npm install -g yarn
-  fi
+  sudo npm install -g yarn
 }
 
 function executeInstaller() {

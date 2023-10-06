@@ -78,4 +78,4 @@ function executeInstaller() {
 # Execute
 ##
 
-executeInstaller "wget"
+executeInstaller "python3-pip"
