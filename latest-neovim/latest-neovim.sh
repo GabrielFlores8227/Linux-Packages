@@ -46,9 +46,9 @@ function version() {
   if [[ "$package_manager" == "apt" ]]; then
     version=$(apt-cache show $1 | grep Version | head -n 1 | awk '{print $2}')
   elif [[ "$package_manager" == "yum" ]]; then
-    version="https://dl.yarnpkg.com/rpm/yarn.repo"
+    version=$(yum info $1 | grep Version | head -n 1 | awk '{print $3}')
   elif [[ "$package_manager" == "dnf" ]]; then
-    version="https://dl.yarnpkg.com/rpm/yarn.repo"
+    version=$(dnf info $1 | grep Version | head -n 1 | awk '{print $3}')
   fi
 
   echo "$version"
