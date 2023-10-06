@@ -43,13 +43,23 @@ fi
 ##
 
 function version() {
-  echo "https://github.com/neovim/neovim"
+  if [[ "$package_manager" == "apt" ]]; then
+    version=$(apt-cache show $1 | grep Version | head -n 1 | awk '{print $2}')
+  elif [[ "$package_manager" == "yum" ]]; then
+    version="https://dl.yarnpkg.com/rpm/yarn.repo"
+  elif [[ "$package_manager" == "dnf" ]]; then
+    version="https://dl.yarnpkg.com/rpm/yarn.repo"
+  fi
+
+  echo "$version"
 }
 
 function installer() {
-	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage \
-	&& chmod u+x nvim.appimage \
-	&& sudo ./nvim.appimage
+  if [[ "$package_manager" == "apt" ]]; then
+    sudo apt install -y $1
+  elif [[ "$package_manager" == "yum" || "$package_manager" == "dnf" ]]; then
+    sudo $package_manager install -y $1
+  fi
 }
 
 function executeInstaller() {
