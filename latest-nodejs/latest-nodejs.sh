@@ -32,8 +32,6 @@ if command -v apt >/dev/null; then
   package_manager="apt"
 elif command -v yum >/dev/null; then
   package_manager="yum"
-elif command -v dnf >/dev/null; then
-  package_manager="dnf"
 else
   exit 1
 fi
@@ -43,15 +41,7 @@ fi
 ##
 
 function version() {
-  if [[ "$package_manager" == "apt" ]]; then
-    echo "https://github.com/nodesource/distributions"
-  elif [[ "$package_manager" == "yum" ]]; then
-    echo "https://github.com/nodesource/distributions"
-  elif [[ "$package_manager" == "dnf" ]]; then
-    version=$(dnf info $1 | grep Version | head -n 1 | awk '{print $3}')
-  fi
-
-  echo "$version"
+  echo "https://github.com/nodesource/distributions"
 }
 
 function installer() {
@@ -66,8 +56,6 @@ function installer() {
   elif [[ "$package_manager" == "yum" ]]; then
     sudo yum install https://rpm.nodesource.com/pub_20.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y \
     && sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
-  elif [[ "$package_manager" == "dnf" ]]; then
-    sudo dnf install nodejs && sudo dnf upgrade nodejs
   fi
 }
 

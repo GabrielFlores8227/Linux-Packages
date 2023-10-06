@@ -32,8 +32,6 @@ if command -v apt >/dev/null; then
   package_manager="apt"
 elif command -v yum >/dev/null; then
   package_manager="yum"
-elif command -v dnf >/dev/null; then
-  package_manager="dnf"
 else
   exit 1
 fi

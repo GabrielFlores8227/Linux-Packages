@@ -32,8 +32,6 @@ if command -v apt >/dev/null; then
   package_manager="apt"
 elif command -v yum >/dev/null; then
   package_manager="yum"
-elif command -v dnf >/dev/null; then
-  package_manager="dnf"
 else
   exit 1
 fi
@@ -47,8 +45,6 @@ function version() {
     version=$(apt-cache show $1 | grep Version | head -n 1 | awk '{print $2}')
   elif [[ "$package_manager" == "yum" ]]; then
     version=$(yum info $1 | grep Version | head -n 1 | awk '{print $3}')
-  elif [[ "$package_manager" == "dnf" ]]; then
-    version=$(dnf info $1 | grep Version | head -n 1 | awk '{print $3}')
   fi
 
   echo "$version"
@@ -57,7 +53,7 @@ function version() {
 function installer() {
   if [[ "$package_manager" == "apt" ]]; then
     sudo apt install -y $1
-  elif [[ "$package_manager" == "yum" || "$package_manager" == "dnf" ]]; then
+  elif [[ "$package_manager" == "yum" ]]; then
     sudo $package_manager install -y $1
   fi
 }
