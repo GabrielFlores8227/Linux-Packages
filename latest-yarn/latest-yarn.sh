@@ -44,7 +44,7 @@ function version() {
   if [[ "$package_manager" == "apt" ]]; then
     version=$(apt-cache show $1 | grep Version | head -n 1 | awk '{print $2}')
   elif [[ "$package_manager" == "yum" ]]; then
-    version=$(yum info $1 | grep Version | head -n 1 | awk '{print $3}')
+    version="https://www.npmjs.com/package/yarn"
   fi
 
   echo "$version"
@@ -54,7 +54,7 @@ function installer() {
   if [[ "$package_manager" == "apt" ]]; then
     sudo apt install -y $1
   elif [[ "$package_manager" == "yum" ]]; then
-    sudo $package_manager install -y $1
+    sudo npm install -g yarn
   fi
 }
 
